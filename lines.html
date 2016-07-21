@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      * { margin: 0; padding: 0;}
+
+body, html { height:100%; }
+
+canvas {
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+      }	  
+    </style>
+  </head>
+  <body>
+  	<canvas id="canvas"></canvas>
+
+    <script>
+
+//set the variables
+function writeMessage(canvas, message) {
+        var context = canvas.getContext('2d');                
+		context.clearRect(3,10,125,25);
+        context.fillStyle = 'black';
+        context.fillText(message, 10, 25);
+      }
+	  function drawLines(canvas,mousePos)
+	  {
+	  var k = 10;
+		var context = canvas.getContext('2d');	  
+		var i = k;
+		context.beginPath();
+		while( i< canvas.height)
+		{
+			context.moveTo(0,i);
+			context.lineTo(canvas.width,i);		
+			i = i+k;						
+		}
+		i=k;
+		while( i< canvas.width)
+		{
+			context.moveTo(i,0);
+			if(i<mousePos.x)
+			{				
+				context.lineTo(canvas.width, i/(mousePos.x-i) * (canvas.width - i));
+			}
+			else {
+				context.lineTo(mousePos.x,i);
+			}
+			// (i,0) (x1,i) (w, ?)
+			// y-y1 = m(x-x1); m=i/x1-i
+			// y-0 = i/x1-i*(x-i)
+			// y = ix/x1-i - sq(i)/x1-i			
+			i = i+k;									
+		}
+		context.strokeStyle = '#000000';
+		context.lineWidth = 1;
+		context.stroke();
+		context.beginPath();		
+		i = Math.round(mousePos.y/k)*k;
+		context.moveTo(0,i);
+		context.lineTo(canvas.width,i);
+		i = Math.round(mousePos.y/k)*k;
+		context.moveTo(i,0);			
+		context.lineTo(canvas.width, i/(mousePos.x-i) * (canvas.width - i));			
+		context.strokeStyle = '#ff0000';
+		context.lineWidth = 2;
+		context.stroke();
+		//writeMessage(canvas, i);
+	  }
+	  
+      function getMousePos(canvas, evt) {
+        
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: Math.floor((evt.clientX-rect.left)/(rect.right-rect.left)*canvas.width),
+		  y: Math.floor((evt.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height)
+        };
+      }	  
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+	   context.canvas.width  = document.body.clientWidth;
+  context.canvas.height = document.body.clientHeight; 
+      canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		drawLines(canvas,mousePos);
+        //writeMessage(canvas, message);
+      }, false);
+
+    </script>
+  </body>
+</html>      
+
+      
