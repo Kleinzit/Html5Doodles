@@ -58,16 +58,30 @@ function writeMessage(canvas, message) {
 		context.strokeStyle = '#000000';
 		context.lineWidth = 1;
 		context.stroke();
+		
 		context.beginPath();		
-		i = Math.round(mousePos.y/k)*k;
-		context.moveTo(0,i);
-		context.lineTo(canvas.width,i);
-		i = Math.round(mousePos.y/k)*k;
+		//i = Math.round(mousePos.y/k)*k;
+		//context.moveTo(0,i);
+		//context.lineTo(canvas.width,i);
+		//context.strokeStyle = '#ff0000';
+		//context.lineWidth = 2;
+		//context.stroke();
+		
+		i = Math.floor(mousePos.y/k)*k;
+		if ((i+k)/(mousePos.x-(i+k)) * (canvas.width - (i+k)) > 0)
+		{
 		context.moveTo(i,0);			
 		context.lineTo(canvas.width, i/(mousePos.x-i) * (canvas.width - i));			
+		i = i+k;
+		context.lineTo(canvas.width, i/(mousePos.x-i) * (canvas.width - i));
+		context.lineTo(i,0);
+		context.closePath();
 		context.strokeStyle = '#ff0000';
 		context.lineWidth = 2;
 		context.stroke();
+		context.fillStyle = '#ff0000';
+		context.fill();
+		}
 		//writeMessage(canvas, i);
 	  }
 	  
