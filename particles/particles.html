@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	  <link rel="stylesheet" type="text/css" href="../common/common.css">
+      <style>#canvas { background-color: #000000; }</style>
+  </head>
+  <body>
+	<canvas id="canvas"></canvas>	
+	<script src="animate.js"></script>
+	<script src="comet.js"></script>
+	<script>
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		context.canvas.width  = document.body.clientWidth;
+		context.canvas.height = document.body.clientHeight;
+		Comet.props.origX = document.body.clientWidth/4;
+		Comet.props.origy = document.body.clientHeight/4;
+		Animation.animate(Comet,canvas,context);
+	</script>
+  </body>
+</html>      
