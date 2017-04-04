@@ -9,7 +9,7 @@ var Comet = {
         rotation: 200,
         startTime: null,
         color: '#FFFFFF',
-        particleAge: 200,
+        particleAge: 100,
         particleSize: 3
     },
     particles: [],
