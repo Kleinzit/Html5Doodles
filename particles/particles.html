@@ -11,8 +11,33 @@
 </head>
 
 <body>
-
-		<canvas id="canvasMini" width="500" height="500"></canvas>
+	<canvas id="canvasMini" width="500" height="500"></canvas>
+	<div class="slidrdiv">
+		<center>
+			<div class="slidrtext" id="FPS">FPS: 0</div>
+		</center>
+		<br/>
+		<center>
+			<div class="slidrtext" id="particleSizeText">Particle Size: 3</div>
+		</center>
+		<input id="particleSize" type="range" min="1" max="10" value="3" oninput="Comet.setParticleSize()" onchange="Comet.setParticleSize()">
+		<center>
+			<div class="slidrtext" id="particleNumberText">Particle number: 20</div>
+		</center>
+		<input id="particleNumber" type="range" min="1" max="101" value="20" step="10" oninput="Comet.setParticleNumber()" onchange="Comet.setParticleNumber()">
+		<center>
+			<div class="slidrtext" id="particleAgeText">Particle Age: 100</div>
+		</center>
+		<input id="particleAge" type="range" min="10" max="200" value="100" step="10" oninput="Comet.setParticleAge()" onchange="Comet.setParticleAge()">
+		<center>
+			<div class="slidrtext" id="particleDriftText">Particle Drift: 2</div>
+		</center>
+		<input id="particleDrift" type="range" min="0" max="10" value="2" step="1" oninput="Comet.setParticleDrift()" onchange="Comet.setParticleDrift()">
+		<center>
+			<div class="slidrtext" id="particleSpeedText">Rotation Speed: 1.7</div>
+		</center>
+		<input id="particleSpeed" type="range" min="0.2" max="3" value="1.7" step="0.1" oninput="Comet.setParticleSpeed()" onchange="Comet.setParticleSpeed()">
+	</div>
 	<script src="animate.js"></script>
 	<script src="comet.js"></script>
 	<script>

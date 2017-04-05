@@ -10,7 +10,21 @@ var Comet = {
         startTime: null,
         color: '#FFFFFF',
         particleAge: 100,
-        particleSize: 3
+        particleSize: 3,
+        particleNumber: 20,
+        particleDrift: 2
+    },
+    filter: {
+        strength: 10,
+        frameTime: 0,
+        lastLoop: new Date,
+        thisLoop: new Date,
+        updateFps: function () {
+            var thisFrameTime = (this.thisLoop = new Date) - this.lastLoop;
+            this.frameTime += (thisFrameTime - this.frameTime) / this.strength;
+            this.lastLoop = this.thisLoop;
+            document.getElementById("FPS").innerHTML = "FPS: " + (1000 / this.frameTime).toFixed(0);
+        }
     },
     particles: [],
     draw: function (canvas, context) {
@@ -24,7 +38,7 @@ var Comet = {
 
         this.drawParticles(context);
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < this.props.particleNumber; i++) {
             this.particles.push({
                 x: this.props.x + this.props.radius / 2 - this.props.particleSize / 2,
                 y: this.props.y + this.props.radius / 2 - this.props.particleSize / 2,
@@ -32,6 +46,9 @@ var Comet = {
             });
 
         }
+
+        this.filter.updateFps();
+
     },
     reposition: function (canvas) {
         var time = (new Date().getTime() - this.props.startTime) / 1000 * this.props.speed;
@@ -64,18 +81,30 @@ var Comet = {
     drawSingleParticle: function (context, particle) {
         context.beginPath();
         context.rect(particle.x, particle.y, this.props.particleSize, this.props.particleSize);
-        context.fillStyle = 'rgba(255,' + Math.floor((particle.age / this.props.particleAge) * 255) + ',0,'+particle.age / this.props.particleAge+')';
+        context.fillStyle = 'rgba(255,' + Math.floor((particle.age / this.props.particleAge) * 255) + ',0,' + particle.age / this.props.particleAge + ')';
         context.fill();
         particle.age -= 1;
-        particle.y += (Math.random() - 0.5) * 2;
-        particle.x += (Math.random() - 0.5) * 2;
+        particle.y += (Math.random() - 0.5) * this.props.particleDrift;
+        particle.x += (Math.random() - 0.5) * this.props.particleDrift;
     },
-    hex2rgb: function (hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
+    setParticleSize: function () {
+        document.getElementById("particleSizeText").innerHTML = "Particle Size: " + document.getElementById("particleSize").value;
+        this.props.particleSize = parseInt(document.getElementById("particleSize").value);
+    },
+    setParticleNumber: function () {
+        document.getElementById("particleNumberText").innerHTML = "Particle Number: " + document.getElementById("particleNumber").value;
+        this.props.particleNumber = parseInt(document.getElementById("particleNumber").value);
+    },
+    setParticleAge: function () {
+        document.getElementById("particleAgeText").innerHTML = "Particle Age: " + document.getElementById("particleAge").value;
+        this.props.particleAge = parseInt(document.getElementById("particleAge").value);
+    },
+    setParticleDrift: function () {
+        document.getElementById("particleDriftText").innerHTML = "Particle Drift: " + document.getElementById("particleDrift").value;
+        this.props.particleDrift = parseInt(document.getElementById("particleDrift").value);
+    },
+    setParticleSpeed: function () {
+        document.getElementById("particleSpeedText").innerHTML = "Rotation Speed: " + document.getElementById("particleSpeed").value;
+        this.props.speed = parseFloat(document.getElementById("particleSpeed").value);
     }
 }
