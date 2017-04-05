@@ -23,7 +23,7 @@ var Comet = {
             var thisFrameTime = (this.thisLoop = new Date) - this.lastLoop;
             this.frameTime += (thisFrameTime - this.frameTime) / this.strength;
             this.lastLoop = this.thisLoop;
-            document.getElementById("FPS").innerHTML = "FPS: " + (1000 / this.frameTime).toFixed(0);
+            document.getElementById("FPS").innerHTML = "FPS: " + (1000 / this.frameTime).toFixed(0);            
         }
     },
     particles: [],
@@ -48,6 +48,7 @@ var Comet = {
         }
 
         this.filter.updateFps();
+        document.getElementById("counter").innerHTML = "Particles: " + this.particles.length;
 
     },
     reposition: function (canvas) {
