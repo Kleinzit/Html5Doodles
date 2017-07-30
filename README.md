@@ -6,3 +6,5 @@ click to view:
 ### [PARTICLE TAIL] (http://htmlpreview.github.io/?https://github.com/Kleinzit/Html5Doodles/blob/master/particles/particles.html)
 
 ### [MODULAR MULT ON A CIRCLE] (http://htmlpreview.github.io/?https://github.com/Kleinzit/Html5Doodles/blob/master/modular/modular.html)
+
+### [3D CUBE TRAILS] (http://htmlpreview.github.io/?https://github.com/Kleinzit/Html5Doodles/blob/master/3dpoly/3dpoly.html)
